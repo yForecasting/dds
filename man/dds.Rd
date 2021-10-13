@@ -11,7 +11,9 @@ dds(x, fun = "", a = TRUE)
 \arguments{
 \item{x}{Data or output of a function which needs description}
 
-\item{fun}{Function that needs to be executed on the data (optional)}
+\item{fun}{Function that needs to be executed on the data (optional).
+Argument fun can be: c("ts","res", "acf"). See examples for
+individual use of fun (x is changing alongside)}
 
 \item{a}{Auditive output required (default = TRUE)
 #'}
@@ -35,9 +37,21 @@ This function converts graphical output to textual and auditive output.
      dds(x)
   }
 
+# Any data
+set.seed(1010)
 x <- rnorm(100)
 dds(x,a=FALSE)
 
+# Time series data
+set.seed(1010)
+x <- ts(rnorm(100),start=c(2020,1),freq=12)
+dds(x,a=FALSE,fun="ts")
+
+# Residual analysis
+library(forecast)
+set.seed(1010)
+x <- ts(rnorm(100),start=c(2020,1),freq=12)
+dds(naive(x),a=FALSE,fun="res")
 }
 \author{
 Yves R. Sagaert
